@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "=== ROCm Health Check ==="
+echo "Date: $(date)"
+echo ""
+rocm-smi 2>/dev/null || echo "rocm-smi not found"
+echo ""
+echo "--- ROCm Version ---"
+cat /opt/rocm/.info/version 2>/dev/null || echo "ROCm not installed"
+echo ""
+echo "--- Python GPU Check ---"
+python3 -c "import torch; print(f'PyTorch {torch.__version__}, GPU: {torch.cuda.is_available()}')" 2>/dev/null || echo "PyTorch N/A"
